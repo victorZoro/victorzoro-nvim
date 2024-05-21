@@ -1,20 +1,20 @@
 return {
   { "catppuccin/nvim" },
   require("catppuccin").setup({
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
+    flavour = "mocha",         -- latte, frappe, macchiato, mocha
     dim_inactive = {
-      enabled = false, -- dims the background color of inactive window
+      enabled = false,         -- dims the background color of inactive window
       shade = "dark",
-      percentage = 0.15, -- percentage of the shade to apply to the inactive window
+      percentage = 0.15,       -- percentage of the shade to apply to the inactive window
     },
-    no_italic = false, -- Force no italic
-    no_bold = false, -- Force no bold
-    no_underline = false, -- Force no underline
-    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+    no_italic = false,         -- Force no italic
+    no_bold = false,           -- Force no bold
+    no_underline = false,      -- Force no underline
+    styles = {                 -- Handles the styles of general hi groups (see `:h highlight-args`):
       comments = { "italic" }, -- Change the style of comments
       conditionals = { "italic" },
       loops = { "italic" },
-      functions = {},
+      functions = { "bold" },
       keywords = {},
       strings = {},
       variables = {},
@@ -31,13 +31,12 @@ return {
       },
     },
     custom_highlights = {},
-    default_integrations = false,
+    default_integrations = true,
     integrations = {
       cmp = true,
       gitsigns = true,
       nvimtree = true,
       treesitter = true,
-      notify = false,
       mini = {
         enabled = true,
         indentscope_color = "",
