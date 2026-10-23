@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -u
 
 # Function to install package and handle errors
 install_package() {
@@ -27,23 +28,24 @@ npm_install() {
 # Array to store errors
 errors=()
 
-# Update package lists
-sudo apt update
+if [[ "$(uname -s)" == "Darwin" ]]; then
+	command -v brew >/dev/null || { echo "Instale o Homebrew: https://brew.sh"; exit 1; }
+	brew update
+	brew install fd ripgrep neovim lazygit tree-sitter-cli python node
+	brew install --cask iterm2 2>/dev/null || true
+else
+	# Linux dependencies
+	sudo apt update
+	sudo apt install -y fd-find xclip python3-pip ripgrep neovim curl tar
 
-# Upgrade installed packages
-sudo apt upgrade -y
-
-# Install packages
-install_package "fd-find"
-install_package "xclip"
-install_package "python3-pip"
-install_package "ripgrep"
-
-# Add lazygit repository and install it
-LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-tar xf lazygit.tar.gz lazygit
-sudo install lazygit /usr/local/bin/
+	# Install the latest lazygit release when the package is unavailable.
+	if ! command -v lazygit >/dev/null; then
+		LAZYGIT_VERSION=$(curl -fsSL "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+		curl -fsSLo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+		tar xf /tmp/lazygit.tar.gz -C /tmp lazygit
+		sudo install /tmp/lazygit /usr/local/bin/
+	fi
+fi
 
 # install npm packages
 npm_install "neovim"
