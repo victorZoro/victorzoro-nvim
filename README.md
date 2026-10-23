@@ -16,6 +16,29 @@ ela será preservada em um diretório `.backup.<data>` antes da criação do lin
 O clipboard usa `unnamedplus`: macOS usa `pbcopy/pbpaste`; Linux usa `xclip` ou
 `wl-clipboard`.
 
+### Itens que exigem instalação local
+
+Para compilar LaTeX com VimTeX, instale o MacTeX (ou BasicTeX) no macOS:
+
+```bash
+brew install --cask mactex-no-gui
+```
+
+Depois reinicie o terminal para que `latexmk` e `biber` entrem no `PATH`.
+Python, Perl e Ruby são providers opcionais do Neovim e podem permanecer
+desativados se nenhum plugin local depender deles.
+
+Após atualizar o Neovim para uma versão nova, atualize os parsers e plugins:
+
+```vim
+:Lazy update nvim-treesitter
+:TSUpdate
+```
+
+Isso é necessário no Neovim 0.12 quando o healthcheck indicar erro de query
+`vimdoc`, pois o parser precisa acompanhar a ABI e a sintaxe de queries da
+versão instalada.
+
 ## Linguagens e ferramentas
 
 Há extras do LazyVim para TypeScript/JavaScript, Java, C#, SQL, Markdown, YAML,
