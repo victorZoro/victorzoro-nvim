@@ -21,8 +21,13 @@ O clipboard usa `unnamedplus`: macOS usa `pbcopy/pbpaste`; Linux usa `xclip` ou
 Para compilar LaTeX com VimTeX, instale o MacTeX (ou BasicTeX) no macOS:
 
 ```bash
-brew install --cask mactex-no-gui
+brew install --cask basictex
+sudo tlmgr install latexmk biber
 ```
+
+Se `basictex` já estiver instalado, não instale `mactex-no-gui`: os dois
+casks são conflitantes. O MacTeX completo é uma alternativa, não um
+complemento do BasicTeX.
 
 Depois reinicie o terminal para que `latexmk` e `biber` entrem no `PATH`.
 Python, Perl e Ruby são providers opcionais do Neovim e podem permanecer
