@@ -1,6 +1,28 @@
 #!/usr/bin/env bash
 set -u
 
+# Make this repository the active Neovim configuration.
+# This is intentionally done before installing dependencies so a failed
+# package install does not leave the configuration unregistered.
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+NVIM_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+NVIM_CONFIG_DIR="$NVIM_CONFIG_HOME/nvim"
+
+if [[ "$NVIM_CONFIG_DIR" != "$SCRIPT_DIR" ]]; then
+	mkdir -p "$NVIM_CONFIG_HOME"
+	if [[ -L "$NVIM_CONFIG_DIR" && "$(readlink "$NVIM_CONFIG_DIR")" == "$SCRIPT_DIR" ]]; then
+		echo "Neovim config already linked: $NVIM_CONFIG_DIR -> $SCRIPT_DIR"
+	elif [[ -e "$NVIM_CONFIG_DIR" || -L "$NVIM_CONFIG_DIR" ]]; then
+		BACKUP_DIR="${NVIM_CONFIG_DIR}.backup.$(date +%Y%m%d%H%M%S)"
+		mv "$NVIM_CONFIG_DIR" "$BACKUP_DIR"
+		ln -s "$SCRIPT_DIR" "$NVIM_CONFIG_DIR"
+		echo "Existing Neovim config backed up to: $BACKUP_DIR"
+	else
+		ln -s "$SCRIPT_DIR" "$NVIM_CONFIG_DIR"
+	fi
+	echo "Active Neovim config: $NVIM_CONFIG_DIR -> $SCRIPT_DIR"
+fi
+
 # Function to install package and handle errors
 install_package() {
 	package_name=$1

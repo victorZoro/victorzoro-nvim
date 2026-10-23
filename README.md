@@ -9,6 +9,10 @@ Execute `./install.sh` em macOS ou Linux e abra o Neovim. O Lazy.nvim instalará
 os plugins na primeira execução. No macOS, instale o iTerm2/Terminal com
 Option configurado como tecla Meta para que `<A-h/j/k/l>` funcione.
 
+O instalador também registra este repositório como a configuração ativa em
+`~/.config/nvim` (ou `$XDG_CONFIG_HOME/nvim`). Se já existir uma configuração,
+ela será preservada em um diretório `.backup.<data>` antes da criação do link.
+
 O clipboard usa `unnamedplus`: macOS usa `pbcopy/pbpaste`; Linux usa `xclip` ou
 `wl-clipboard`.
 
