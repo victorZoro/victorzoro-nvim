@@ -74,7 +74,12 @@ map("n", "<leader>;q", "<cmd>%bd|e#|bd#<CR>", { desc = "Close other editors" })
 -- Navigation and source-code actions
 local function telescope_picker(name)
   return function(...)
-    require("telescope.builtin")[name](...)
+    local ok, builtin = pcall(require, "telescope.builtin")
+    if not ok then
+      vim.notify("Telescope is not installed. Run :Lazy sync.", vim.log.levels.WARN)
+      return
+    end
+    builtin[name](...)
   end
 end
 
