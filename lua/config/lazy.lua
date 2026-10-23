@@ -35,6 +35,9 @@ require("lazy").setup({
   },
   install = { colorscheme = { 'catppuccin' } },
   checker = { enabled = true }, -- automatically check for plugin updates
+  -- This configuration does not use LuaRocks-backed plugins. Disabling the
+  -- optional manager avoids a false healthcheck failure on macOS installs.
+  rocks = { enabled = false },
   performance = {
     rtp = {
       -- disable some rtp plugins
