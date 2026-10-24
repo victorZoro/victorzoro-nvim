@@ -130,6 +130,44 @@ o IdeaVim aprovado; por isso não navegam para baixo/cima no tmux.
 | `<leader>lc` | Última alteração |
 | `<A-[>` / `<A-]>` | Método anterior / próximo |
 
+## Bancos de dados
+
+O projeto inclui `vim-dadbod`, `vim-dadbod-ui` e `vim-dadbod-completion` para
+abrir conexões, navegar por schemas e executar SQL dentro do Neovim. Os
+plugins não armazenam credenciais no repositório.
+
+### Atalhos
+
+| Atalho | Ação |
+|---|---|
+| `<leader>db` | Abrir/fechar a interface do banco |
+| `<leader>dq` | Abrir a interface do banco |
+| `<leader>df` | Encontrar buffer de banco |
+| `<leader>dr` | Renomear buffer de banco |
+
+### Primeira conexão
+
+Depois de atualizar os plugins, execute `:DBUI`. Na janela do DBUI, pressione
+`A` para adicionar uma conexão. Exemplos de URLs:
+
+```text
+postgresql://user:password@localhost:5432/my_database
+mysql://user:password@localhost:3306/my_database
+sqlserver://user:password@localhost:1433?database=my_database
+```
+
+Prefira variáveis de ambiente ou arquivos de conexão locais para não salvar
+senhas em texto puro. Em um buffer SQL, o completion aparece automaticamente;
+use `:DB` para executar a consulta atual.
+
+Os clientes do banco ainda precisam estar instalados no sistema:
+
+```bash
+brew install libpq mysql-client
+```
+
+Para SQL Server, instale o `sqlcmd` pelo pacote oficial da Microsoft.
+
 ## Decisões de compatibilidade
 
 - Neo-tree permanece no `<leader>e`, como equivalente existente ao NERDTree.
