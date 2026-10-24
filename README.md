@@ -168,6 +168,13 @@ brew install libpq mysql-client
 
 Para SQL Server, instale o `sqlcmd` pelo pacote oficial da Microsoft.
 
+O suporte a arquivos `.http` depende do parser Treesitter `http`. Ele é
+instalado automaticamente pelo projeto; se necessário, execute:
+
+```vim
+:TSInstall http
+```
+
 ## HTTP dentro do Neovim
 
 O projeto também inclui `rest.nvim`, um cliente HTTP semelhante ao Postman para
