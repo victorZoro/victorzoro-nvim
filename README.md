@@ -170,7 +170,7 @@ Para SQL Server, instale o `sqlcmd` pelo pacote oficial da Microsoft.
 
 ## HTTP dentro do Neovim
 
-O projeto também inclui Kulala, um cliente HTTP semelhante ao Postman para
+O projeto também inclui `rest.nvim`, um cliente HTTP semelhante ao Postman para
 arquivos `.http`. Crie, por exemplo, `requests.http`:
 
 ```http
@@ -192,11 +192,12 @@ Abra o arquivo no Neovim e use:
 | Atalho | Ação |
 |---|---|
 | `<leader>hr` | Executar a requisição atual |
-| `<leader>ha` | Executar todas as requisições |
-| `<leader>hi` | Inspecionar a requisição |
-| `<leader>hx` | Abrir scratchpad HTTP |
+| `<leader>ha` | Executar a requisição atual |
+| `<leader>hi` | Selecionar ambiente HTTP |
+| `<leader>hx` | Abrir a resposta HTTP |
 
-O resultado aparece dentro do Neovim. Variáveis de ambiente podem ser
+O resultado aparece dentro do Neovim. Execute `:Rest run` para rodar a
+requisição sob o cursor. Variáveis de ambiente podem ser
 mantidas em arquivos locais `.env`/`.http` e não devem conter credenciais
 commitadas no repositório.
 

@@ -1,15 +1,21 @@
 return {
-  "mistweaverco/kulala.nvim",
+  "rest-nvim/rest.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
   ft = { "http" },
   keys = {
-    { "<leader>hr", "<cmd>lua require('kulala').run()<CR>", desc = "HTTP request" },
-    { "<leader>ha", "<cmd>lua require('kulala').run_all()<CR>", desc = "Run all HTTP requests" },
-    { "<leader>hi", "<cmd>lua require('kulala').inspect()<CR>", desc = "Inspect HTTP request" },
-    { "<leader>hx", "<cmd>lua require('kulala').scratchpad()<CR>", desc = "HTTP scratchpad" },
+    { "<leader>hr", "<cmd>Rest run<CR>", desc = "HTTP request" },
+    { "<leader>ha", "<cmd>Rest run<CR>", desc = "Run HTTP request" },
+    { "<leader>hi", "<cmd>Rest env<CR>", desc = "HTTP environment" },
+    { "<leader>hx", "<cmd>Rest open<CR>", desc = "HTTP response" },
   },
+  config = function(_, opts)
+    require("rest-nvim").setup(opts)
+  end,
   opts = {
-    default_view = "body",
-    split_direction = "vertical",
-    display_mode = "float",
+    result = {
+      show_url = true,
+      show_curl_command = true,
+      skip_ssl_verification = false,
+    },
   },
 }
