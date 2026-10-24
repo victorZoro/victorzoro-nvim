@@ -168,6 +168,38 @@ brew install libpq mysql-client
 
 Para SQL Server, instale o `sqlcmd` pelo pacote oficial da Microsoft.
 
+## HTTP dentro do Neovim
+
+O projeto também inclui Kulala, um cliente HTTP semelhante ao Postman para
+arquivos `.http`. Crie, por exemplo, `requests.http`:
+
+```http
+### Listar pets
+GET http://localhost:3000/pets
+Accept: application/json
+
+### Criar pet
+POST http://localhost:3000/pets
+Content-Type: application/json
+
+{
+  "name": "Rex"
+}
+```
+
+Abra o arquivo no Neovim e use:
+
+| Atalho | Ação |
+|---|---|
+| `<leader>hr` | Executar a requisição atual |
+| `<leader>ha` | Executar todas as requisições |
+| `<leader>hi` | Inspecionar a requisição |
+| `<leader>hx` | Abrir scratchpad HTTP |
+
+O resultado aparece dentro do Neovim. Variáveis de ambiente podem ser
+mantidas em arquivos locais `.env`/`.http` e não devem conter credenciais
+commitadas no repositório.
+
 ## Decisões de compatibilidade
 
 - Neo-tree permanece no `<leader>e`, como equivalente existente ao NERDTree.
