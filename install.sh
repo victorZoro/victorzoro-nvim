@@ -54,6 +54,11 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
 	command -v brew >/dev/null || { echo "Instale o Homebrew: https://brew.sh"; exit 1; }
 	brew update
 	brew install fd ripgrep neovim lazygit tree-sitter-cli python node
+	if brew list --cask basictex >/dev/null 2>&1 || brew list --cask mactex-no-gui >/dev/null 2>&1; then
+		echo "BasicTeX/MacTeX already installed"
+	else
+		brew install --cask basictex
+	fi
 	brew install --cask iterm2 2>/dev/null || true
 else
 	# Linux dependencies

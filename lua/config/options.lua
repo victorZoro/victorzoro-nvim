@@ -3,6 +3,20 @@
 -- Add any additional options here
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
+
+-- Homebrew installs database clients as keg-only packages on macOS. Make
+-- their executables visible to vim-dadbod even when Neovim was launched from
+-- a GUI, a restored session, or before the shell profile was reloaded.
+if vim.fn.has("mac") == 1 then
+  local brew_bin_paths = {
+    "/opt/homebrew/opt/mysql-client/bin",
+    "/usr/local/opt/mysql-client/bin",
+    "/opt/homebrew/opt/libpq/bin",
+    "/usr/local/opt/libpq/bin",
+  }
+  vim.env.PATH = table.concat(brew_bin_paths, ":") .. ":" .. vim.env.PATH
+end
+
 vim.opt.colorcolumn = "80,120"
 
 -- Core editing options mirrored from the IdeaVim configuration.

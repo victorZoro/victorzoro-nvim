@@ -5,6 +5,7 @@ return {
     ensure_installed = {
       "bash",
       "html",
+      "http",
       "json",
       "lua",
       "markdown",
