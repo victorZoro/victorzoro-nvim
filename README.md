@@ -21,8 +21,13 @@ O clipboard usa `unnamedplus`: macOS usa `pbcopy/pbpaste`; Linux usa `xclip` ou
 Para compilar LaTeX com VimTeX, instale o MacTeX (ou BasicTeX) no macOS:
 
 ```bash
-brew install --cask mactex-no-gui
+brew install --cask basictex
+sudo tlmgr install latexmk biber
 ```
+
+Se `basictex` já estiver instalado, não instale `mactex-no-gui`: os dois
+casks são conflitantes. O MacTeX completo é uma alternativa, não um
+complemento do BasicTeX.
 
 Depois reinicie o terminal para que `latexmk` e `biber` entrem no `PATH`.
 Python, Perl e Ruby são providers opcionais do Neovim e podem permanecer
@@ -124,6 +129,84 @@ o IdeaVim aprovado; por isso não navegam para baixo/cima no tmux.
 | `<S-f>` / `<S-r>` | Buscar no buffer / busca global |
 | `<leader>lc` | Última alteração |
 | `<A-[>` / `<A-]>` | Método anterior / próximo |
+
+## Bancos de dados
+
+O projeto inclui `vim-dadbod`, `vim-dadbod-ui` e `vim-dadbod-completion` para
+abrir conexões, navegar por schemas e executar SQL dentro do Neovim. Os
+plugins não armazenam credenciais no repositório.
+
+### Atalhos
+
+| Atalho | Ação |
+|---|---|
+| `<leader>db` | Abrir/fechar a interface do banco |
+| `<leader>dq` | Abrir a interface do banco |
+| `<leader>df` | Encontrar buffer de banco |
+| `<leader>dr` | Renomear buffer de banco |
+
+### Primeira conexão
+
+Depois de atualizar os plugins, execute `:DBUI`. Na janela do DBUI, pressione
+`A` para adicionar uma conexão. Exemplos de URLs:
+
+```text
+postgresql://user:password@localhost:5432/my_database
+mysql://user:password@localhost:3306/my_database
+sqlserver://user:password@localhost:1433?database=my_database
+```
+
+Prefira variáveis de ambiente ou arquivos de conexão locais para não salvar
+senhas em texto puro. Em um buffer SQL, o completion aparece automaticamente;
+use `:DB` para executar a consulta atual.
+
+Os clientes do banco ainda precisam estar instalados no sistema:
+
+```bash
+brew install libpq mysql-client
+```
+
+Para SQL Server, instale o `sqlcmd` pelo pacote oficial da Microsoft.
+
+O suporte a arquivos `.http` depende do parser Treesitter `http`. Ele é
+instalado automaticamente pelo projeto; se necessário, execute:
+
+```vim
+:TSInstall http
+```
+
+## HTTP dentro do Neovim
+
+O projeto também inclui `rest.nvim`, um cliente HTTP semelhante ao Postman para
+arquivos `.http`. Crie, por exemplo, `requests.http`:
+
+```http
+### Listar pets
+GET http://localhost:3000/pets
+Accept: application/json
+
+### Criar pet
+POST http://localhost:3000/pets
+Content-Type: application/json
+
+{
+  "name": "Rex"
+}
+```
+
+Abra o arquivo no Neovim e use:
+
+| Atalho | Ação |
+|---|---|
+| `<leader>hr` | Executar a requisição atual |
+| `<leader>ha` | Executar a requisição atual |
+| `<leader>hi` | Selecionar ambiente HTTP |
+| `<leader>hx` | Abrir a resposta HTTP |
+
+O resultado aparece dentro do Neovim. Execute `:Rest run` para rodar a
+requisição sob o cursor. Variáveis de ambiente podem ser
+mantidas em arquivos locais `.env`/`.http` e não devem conter credenciais
+commitadas no repositório.
 
 ## Decisões de compatibilidade
 
